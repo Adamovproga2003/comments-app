@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from 'src/dto/user/create-user.dto';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
-  saltOrRounds = 10;
-
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
@@ -26,9 +25,14 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = { email: user.email, sub: user.userId };
+    const payload = { email: user.email, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async signUp(payload: CreateUserDto) {
+    const user = await this.usersService.create(payload);
+    return user;
   }
 }
