@@ -1,0 +1,264 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""users"""
+type User {
+  id: ID!
+  email: String!
+  username: String
+  hashedPassword: String!
+  comments: [Comment]!
+}
+
+"""comment"""
+type Comment {
+  id: ID!
+  text: String!
+  author: User
+  authorId: String
+  createdAt: DateTime!
+  replyComments: [Comment!]
+  parentComment: Comment
+  parentCommentId: Float
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  getAllComments(skip: Int, take: Int, cursor: CommentWhereUniqueInput, where: CommentWhereInput, orderBy: CommentOrderByWithRelationInput): [Comment!]!
+}
+
+input CommentWhereUniqueInput {
+  id: Int
+  AND: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  NOT: [CommentWhereInput!]
+  text: StringFilter
+  authorId: StringNullableFilter
+  createdAt: DateTimeFilter
+  parentCommentId: IntNullableFilter
+  author: UserNullableRelationFilter
+  replyComments: CommentListRelationFilter
+  parentComment: CommentNullableRelationFilter
+}
+
+input CommentWhereInput {
+  AND: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  NOT: [CommentWhereInput!]
+  id: IntFilter
+  text: StringFilter
+  authorId: StringNullableFilter
+  createdAt: DateTimeFilter
+  parentCommentId: IntNullableFilter
+  author: UserNullableRelationFilter
+  replyComments: CommentListRelationFilter
+  parentComment: CommentNullableRelationFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input UserNullableRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: StringFilter
+  email: StringFilter
+  username: StringNullableFilter
+  hashedPassword: StringFilter
+  comments: CommentListRelationFilter
+}
+
+input CommentListRelationFilter {
+  every: CommentWhereInput
+  some: CommentWhereInput
+  none: CommentWhereInput
+}
+
+input CommentNullableRelationFilter {
+  is: CommentWhereInput
+  isNot: CommentWhereInput
+}
+
+input CommentOrderByWithRelationInput {
+  id: SortOrder
+  text: SortOrder
+  authorId: SortOrderInput
+  createdAt: SortOrder
+  parentCommentId: SortOrderInput
+  author: UserOrderByWithRelationInput
+  replyComments: CommentOrderByRelationAggregateInput
+  parentComment: CommentOrderByWithRelationInput
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input SortOrderInput {
+  sort: SortOrder!
+  nulls: NullsOrder
+}
+
+enum NullsOrder {
+  first
+  last
+}
+
+input UserOrderByWithRelationInput {
+  id: SortOrder
+  email: SortOrder
+  username: SortOrderInput
+  hashedPassword: SortOrder
+  comments: CommentOrderByRelationAggregateInput
+}
+
+input CommentOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+type Mutation {
+  createComment(commentData: CreateCommentDto!): Comment!
+  addReply(replyData: AddReplyCommentDto!): Comment!
+}
+
+input CreateCommentDto {
+  text: String!
+  authorId: String!
+}
+
+input AddReplyCommentDto {
+  text: String!
+  authorId: String!
+  parentCommentId: Int!
+}

@@ -41,7 +41,7 @@ export class CommentsGateway
   ): Promise<void> {
     const { id, createdAt, text } = await this.commentsService.create({
       text: payload.text,
-      author: client.user,
+      authorId: client.user.id,
     });
     this.server.emit('recMessage', {
       id,

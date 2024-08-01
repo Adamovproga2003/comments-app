@@ -14,12 +14,13 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.usersService.findOneByEmail(email);
 
-    const isMatch = await bcrypt.compare(pass, user.hashedPassword);
-
-    if (user && isMatch) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { hashedPassword, ...result } = user;
-      return result;
+    if (user) {
+      const isMatch = await bcrypt.compare(pass, user.hashedPassword);
+      if (isMatch) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { hashedPassword, ...result } = user;
+        return result;
+      }
     }
     return null;
   }

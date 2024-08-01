@@ -1,12 +1,12 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CommentsController } from './comments.controller';
+import { UsersService } from 'src/users/users.service';
+import { CommentsResolver } from './comments.resolver';
 import { CommentsService } from './comments.service';
 
 @Module({
   imports: [HttpModule],
-  controllers: [CommentsController],
-  providers: [CommentsService, PrismaService],
+  providers: [CommentsService, PrismaService, UsersService, CommentsResolver],
 })
 export class CommentsModule {}
